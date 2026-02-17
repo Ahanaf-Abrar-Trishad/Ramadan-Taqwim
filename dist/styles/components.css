@@ -1,0 +1,529 @@
+/* components.css — Component Styles */
+
+/* ===== Bottom Navigation ===== */
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  height: var(--nav-height);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+}
+
+.nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: var(--min-tap-target);
+  min-height: var(--min-tap-target);
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  transition: color 0.15s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-xs);
+}
+
+.nav-tab.active {
+  color: var(--accent-gold);
+}
+
+.nav-tab .nav-icon {
+  font-size: 1.25rem;
+}
+
+/* ===== Sehri/Iftar Hero ===== */
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.hero-card {
+  background: var(--surface-highlight);
+  border: 1px solid var(--accent-gold);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.hero-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  letter-spacing: 1.5px;
+  margin-bottom: var(--space-xs);
+}
+
+.hero-time {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hero-sublabel {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+}
+
+/* ===== Countdown Timer ===== */
+.countdown-section {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.countdown-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--space-sm);
+}
+
+.countdown-next-name {
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.countdown-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  margin: var(--space-md) 0;
+  overflow: hidden;
+}
+
+.countdown-bar-fill {
+  height: 100%;
+  background: var(--accent-gold);
+  border-radius: var(--radius-full);
+  transition: width 1s linear;
+}
+
+.countdown-remaining {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ===== Prayer Card ===== */
+.prayer-list {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-lg);
+}
+
+.prayer-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  min-height: var(--min-tap-target);
+  border-bottom: 1px solid var(--border);
+}
+
+.prayer-card:last-child {
+  border-bottom: none;
+}
+
+.prayer-card.past {
+  opacity: 0.5;
+}
+
+.prayer-card.next {
+  background: var(--bg-tertiary);
+}
+
+.prayer-name {
+  font-size: var(--font-size-base);
+  font-weight: 500;
+}
+
+.prayer-card.next .prayer-name {
+  color: var(--accent-gold);
+}
+
+.prayer-time {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.prayer-card.next .prayer-time {
+  color: var(--accent-gold);
+}
+
+.prayer-indicator {
+  font-size: var(--font-size-sm);
+  margin-left: var(--space-sm);
+}
+
+/* ===== Day Row (Calendar) ===== */
+.day-row {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-sm);
+  border: 1px solid transparent;
+}
+
+.day-row.today {
+  border-color: var(--accent-gold);
+}
+
+.day-row.non-ramadan {
+  opacity: 0.6;
+}
+
+.day-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.day-row-date {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.day-row-hijri {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.day-row-times {
+  display: flex;
+  gap: var(--space-xl);
+  font-size: var(--font-size-sm);
+}
+
+.day-row-times span {
+  color: var(--text-secondary);
+}
+
+.day-row-times strong {
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.day-badge {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-full);
+  margin-top: var(--space-xs);
+}
+
+.day-badge.today-badge {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+}
+
+.day-badge.holiday-badge {
+  background: var(--surface-highlight);
+  color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+}
+
+.day-badge.eid-badge {
+  background: rgba(0, 186, 124, 0.12);
+  color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+}
+
+/* ===== Dua Card ===== */
+.dua-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.dua-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.dua-card-title {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.dua-fav-btn {
+  font-size: 1.25rem;
+  min-width: var(--min-tap-target);
+  min-height: var(--min-tap-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.dua-arabic {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-xl);
+  line-height: 2;
+  text-align: right;
+  direction: rtl;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.dua-transliteration {
+  font-size: var(--font-size-sm);
+  color: var(--accent-gold);
+  font-style: italic;
+  margin-bottom: var(--space-sm);
+}
+
+.dua-translation {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.dua-source {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+/* ===== Quran Day Card ===== */
+.quran-day-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--min-tap-target);
+  cursor: pointer;
+}
+
+.quran-day-card.completed {
+  opacity: 0.6;
+  border-left: 3px solid var(--accent-green);
+}
+
+.quran-day-info {
+  flex: 1;
+}
+
+.quran-day-num {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+
+.quran-day-surah {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.quran-day-pages {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.quran-checkbox {
+  font-size: 1.5rem;
+  min-width: var(--min-tap-target);
+  text-align: center;
+}
+
+/* ===== Category Tabs ===== */
+.category-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.category-tab {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  min-height: var(--min-tap-target);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.category-tab.active {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  border-color: var(--accent-gold);
+}
+
+/* ===== Transparency Footer ===== */
+.transparency-footer {
+  text-align: center;
+  padding: var(--space-lg);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+/* ===== Offline Banner ===== */
+.offline-banner {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  text-align: center;
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-xs);
+  display: none;
+}
+
+.offline-banner.show {
+  display: block;
+}
+
+/* ===== Settings Form ===== */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-select {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  min-height: var(--min-tap-target);
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238B98A5'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.form-hint {
+  font-size: var(--font-size-xs);
+  color: var(--accent-gold);
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: var(--min-tap-target);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+}
+
+.radio-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent-gold);
+}
+
+.btn-save {
+  width: 100%;
+  padding: var(--space-md) var(--space-xl);
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-sm);
+  min-height: var(--min-tap-target);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn-save:hover {
+  opacity: 0.9;
+}
+
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== Loading Skeleton ===== */
+.skeleton-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.skeleton-hero > div {
+  height: 100px;
+}
+
+.skeleton-line {
+  height: 20px;
+  margin-bottom: var(--space-sm);
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+.skeleton-card {
+  height: 50px;
+  margin-bottom: var(--space-sm);
+}

@@ -1,0 +1,13 @@
+{
+  "name": "ramadan-bd",
+  "version": "1.0.0",
+  "description": "Ramadan Bangladesh — Prayer Times Web App",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run build.ts && bunx serve dist",
+    "build": "bun run build.ts",
+    "preview": "bunx serve dist",
+    "test": "bun test"
+  },
+  "devDependencies": {}
+}

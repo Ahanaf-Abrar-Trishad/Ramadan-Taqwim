@@ -1,0 +1,92 @@
+[
+  {
+    "id": "iftar-1",
+    "titleEn": "Dua for Breaking Fast",
+    "arabicText": "اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ",
+    "transliteration": "Allahumma inni laka sumtu wa bika aamantu wa 'ala rizqika aftartu",
+    "translationEn": "O Allah! I fasted for You and I believe in You and I break my fast with Your sustenance.",
+    "category": "iftar",
+    "source": "Abu Dawud 2358"
+  },
+  {
+    "id": "iftar-2",
+    "titleEn": "Dua When Breaking Fast",
+    "arabicText": "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ",
+    "transliteration": "Dhahaba al-zama'u wabtallatil-'urooqu wa thabatal-ajru inshaa'Allah",
+    "translationEn": "The thirst has gone, the veins are moistened, and the reward is confirmed, if Allah wills.",
+    "category": "iftar",
+    "source": "Abu Dawud 2357"
+  },
+  {
+    "id": "sehri-1",
+    "titleEn": "Intention for Fasting (Niyyah)",
+    "arabicText": "وَبِصَوْمِ غَدٍ نَوَيْتُ مِنْ شَهْرِ رَمَضَانَ",
+    "transliteration": "Wa bisawmi ghadin nawaytu min shahri ramadan",
+    "translationEn": "I intend to keep the fast for tomorrow in the month of Ramadan.",
+    "category": "sehri",
+    "source": "Abu Dawud 2454"
+  },
+  {
+    "id": "sehri-2",
+    "titleEn": "Dua Before Eating Sehri",
+    "arabicText": "بِسْمِ اللَّهِ وَعَلَى بَرَكَةِ اللَّهِ",
+    "transliteration": "Bismillahi wa 'ala barakatillah",
+    "translationEn": "In the name of Allah and with the blessings of Allah.",
+    "category": "sehri",
+    "source": "General practice"
+  },
+  {
+    "id": "general-1",
+    "titleEn": "Dua for Forgiveness",
+    "arabicText": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",
+    "transliteration": "Rabbana-ghfir li wa li-walidayya wa lil-mu'mineena yawma yaqoomul-hisaab",
+    "translationEn": "Our Lord, forgive me and my parents and the believers the Day the account is established.",
+    "category": "general",
+    "source": "Quran 14:41"
+  },
+  {
+    "id": "general-2",
+    "titleEn": "Dua for Mercy",
+    "arabicText": "رَبِّ اغْفِرْ وَارْحَمْ وَأَنْتَ خَيْرُ الرَّاحِمِينَ",
+    "transliteration": "Rabbighfir warham wa anta khairur-raahimeen",
+    "translationEn": "My Lord, forgive and have mercy, and You are the best of the merciful.",
+    "category": "general",
+    "source": "Quran 23:118"
+  },
+  {
+    "id": "general-3",
+    "titleEn": "Dua of the Fasting Person",
+    "arabicText": "إِنَّ لِلصَّائِمِ عِنْدَ فِطْرِهِ لَدَعْوَةً مَا تُرَدُّ",
+    "transliteration": "Inna lis-saa'imi 'inda futrihi lada'watan maa turaddu",
+    "translationEn": "The fasting person has a supplication at the time of breaking fast that is not rejected.",
+    "category": "general",
+    "source": "Ibn Majah 1753"
+  },
+  {
+    "id": "general-4",
+    "titleEn": "Dua for Guidance",
+    "arabicText": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
+    "transliteration": "Allahumma inni as'alukal-huda wat-tuqa wal-'afaafa wal-ghina",
+    "translationEn": "O Allah, I ask You for guidance, piety, chastity and self-sufficiency.",
+    "category": "general",
+    "source": "Muslim 2721"
+  },
+  {
+    "id": "qadr-1",
+    "titleEn": "Dua for Laylatul Qadr",
+    "arabicText": "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
+    "transliteration": "Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni",
+    "translationEn": "O Allah, You are Pardoning and You love to pardon, so pardon me.",
+    "category": "laylatul-qadr",
+    "source": "Tirmidhi 3513"
+  },
+  {
+    "id": "qadr-2",
+    "titleEn": "Seeking the Night of Power",
+    "arabicText": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ وَرَحْمَتِكَ فَإِنَّهُ لَا يَمْلِكُهَا إِلَّا أَنْتَ",
+    "transliteration": "Allahumma inni as'aluka min fadlika wa rahmatika fa innahu laa yamlikuhaa illaa anta",
+    "translationEn": "O Allah, I ask You from Your bounty and mercy, for none possesses them except You.",
+    "category": "laylatul-qadr",
+    "source": "Al-Tabarani"
+  }
+]

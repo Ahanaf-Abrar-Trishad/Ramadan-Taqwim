@@ -1,0 +1,171 @@
+/* pages.css — Page-specific styles */
+
+/* ===== Page Header ===== */
+.page-header {
+  margin-bottom: var(--space-lg);
+}
+
+.page-header .app-name {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.page-header .hijri-date {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.page-header .greg-date {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.page-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+}
+
+/* ===== Ramadan Day Counter ===== */
+.ramadan-counter {
+  text-align: center;
+  padding: var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.ramadan-counter strong {
+  color: var(--accent-gold);
+}
+
+/* ===== Month Navigation ===== */
+.month-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.month-nav-btn {
+  min-width: var(--min-tap-target);
+  min-height: var(--min-tap-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.month-nav-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+/* ===== Quran Progress ===== */
+.quran-progress {
+  margin-bottom: var(--space-xl);
+}
+
+.quran-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: var(--space-sm);
+}
+
+.quran-progress-fill {
+  height: 100%;
+  background: var(--accent-green);
+  border-radius: var(--radius-full);
+  transition: width 0.3s;
+}
+
+.quran-progress-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.btn-reset {
+  width: 100%;
+  padding: var(--space-md);
+  background: transparent;
+  color: var(--accent-red);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border: 1px solid var(--accent-red);
+  border-radius: var(--radius-sm);
+  min-height: var(--min-tap-target);
+  cursor: pointer;
+  margin-top: var(--space-xl);
+}
+
+/* ===== Error State ===== */
+.error-state {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-lg);
+}
+
+.error-state .error-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-lg);
+}
+
+.error-state .error-message {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.btn-retry {
+  padding: var(--space-md) var(--space-xl);
+  background: var(--accent-blue);
+  color: white;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  min-height: var(--min-tap-target);
+  cursor: pointer;
+}
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  top: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-green);
+  color: white;
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* ===== Settings Footer ===== */
+.settings-footer {
+  text-align: center;
+  padding: var(--space-xl) 0;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.settings-footer a {
+  color: var(--accent-blue);
+}

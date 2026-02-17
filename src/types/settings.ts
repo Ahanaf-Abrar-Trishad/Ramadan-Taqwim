@@ -6,7 +6,8 @@ export interface AppSettings {
   methodId: number;
   methodName: string;
   school: 0 | 1;
-  theme: 'dark' | 'light';
+  theme: 'dark' | 'light' | 'system';
+  timeFormat: '12h' | '24h';
   lastSaved: string;
 }
 
@@ -17,5 +18,6 @@ export const DEFAULT_SETTINGS: AppSettings = {
   methodName: 'University of Islamic Sciences, Karachi',
   school: 1,
   theme: 'dark',
+  timeFormat: '12h',
   lastSaved: '',
 };

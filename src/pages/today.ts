@@ -3,9 +3,12 @@
 import type { DayTiming, NextPrayer } from '../types/timings';
 import type { AppSettings } from '../types/settings';
 import { appStore } from '../app';
-import { getNextPrayer } from '../services/prayer-engine';
+import { getNextPrayer, getSehriIftarCountdown } from '../services/prayer-engine';
 import { createSehriIftarHero } from '../components/sehri-iftar-hero';
-import { createCountdownSection, updateCountdown } from '../components/countdown-timer';
+import {
+  createCountdownHero, updateCountdownHero,
+  type HeroMode,
+} from '../components/countdown-timer';
 import { createPrayerList } from '../components/prayer-card';
 import { createTransparencyFooter } from '../components/transparency-footer';
 import { createLoadingSkeleton } from '../components/loading-skeleton';
@@ -14,6 +17,7 @@ import { todayDDMMYYYY, todayReadable } from '../utils/date';
 import { APP_NAME } from '../utils/constants';
 
 let countdownInterval: number | null = null;
+let heroMode: HeroMode = 'iftar';
 
 export function renderTodayPage(container: HTMLElement): void {
   const state = appStore.getState();
@@ -60,19 +64,51 @@ export function renderTodayPage(container: HTMLElement): void {
   header.appendChild(h('div', { className: 'greg-date' }, todayReadable()));
   fragment.appendChild(header);
 
-  // Sehri / Iftar hero
+  // Sehri / Iftar hero cards
   fragment.appendChild(createSehriIftarHero(day.prayers));
 
-  // Countdown
+  // Single countdown hero with toggle
+  const siCountdown = getSehriIftarCountdown(day);
   const nextPrayer = getNextPrayer(day);
-  const countdownSection = createCountdownSection(nextPrayer);
-  fragment.appendChild(countdownSection);
+
+  // If not Ramadan, default to next-prayer mode
+  if (!siCountdown) heroMode = 'next-prayer';
+
+  const heroSection = createCountdownHero(siCountdown, nextPrayer, heroMode);
+
+  // Attach toggle handlers
+  const toggleBtns = heroSection.querySelectorAll('.toggle-pill');
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      heroMode = btn.textContent === 'Iftar' ? 'iftar' : 'next-prayer';
+      // Re-render hero
+      const newHero = createCountdownHero(
+        getSehriIftarCountdown(day),
+        getNextPrayer(day),
+        heroMode
+      );
+      // Attach handlers to new hero
+      newHero.querySelectorAll('.toggle-pill').forEach(b => {
+        b.addEventListener('click', () => {
+          heroMode = b.textContent === 'Iftar' ? 'iftar' : 'next-prayer';
+          renderTodayPage(container);
+        });
+      });
+      heroSection.replaceWith(newHero);
+    });
+  });
+
+  fragment.appendChild(heroSection);
 
   // Prayer list
   fragment.appendChild(createPrayerList(day, nextPrayer));
 
   // Ramadan day counter
-  if (day.isRamadan) {
+  if (day.isRamadan && day.ramadanDay) {
+    const counter = h('div', { className: 'ramadan-counter' });
+    counter.innerHTML = `Day <strong>${day.ramadanDay}</strong> of Ramaḍān`;
+    fragment.appendChild(counter);
+  } else if (day.isRamadan) {
     const counter = h('div', { className: 'ramadan-counter' });
     counter.innerHTML = `Day <strong>${day.hijriDay}</strong> of Ramaḍān`;
     fragment.appendChild(counter);
@@ -84,9 +120,14 @@ export function renderTodayPage(container: HTMLElement): void {
   render(container, fragment as unknown as Node);
 
   // Start countdown interval (1s)
+  const heroEl = container.querySelector('.countdown-hero') as HTMLElement;
   countdownInterval = window.setInterval(() => {
+    const updatedSI = getSehriIftarCountdown(day);
     const updated = getNextPrayer(day);
-    updateCountdown(countdownSection, updated);
+
+    if (heroEl) {
+      updateCountdownHero(heroEl, updatedSI, updated, heroMode);
+    }
 
     // If next prayer changed, re-render the prayer list
     if (updated?.name !== nextPrayer?.name) {

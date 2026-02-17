@@ -3,21 +3,25 @@
 /* ===== Page Header ===== */
 .page-header {
   margin-bottom: var(--space-lg);
+  text-align: center;
+  padding-top: var(--space-sm);
 }
 
 .page-header .app-name {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--accent-gold);
+  letter-spacing: 0.5px;
 }
 
 .page-header .hijri-date {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   color: var(--text-secondary);
+  margin-top: var(--space-xs);
 }
 
 .page-header .greg-date {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--text-muted);
 }
 
@@ -30,10 +34,14 @@
 /* ===== Ramadan Day Counter ===== */
 .ramadan-counter {
   text-align: center;
-  padding: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
   font-weight: 500;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+  border-left: 3px solid var(--accent-gold);
 }
 
 .ramadan-counter strong {
@@ -164,6 +172,7 @@
   padding: var(--space-xl) 0;
   font-size: var(--font-size-xs);
   color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .settings-footer a {

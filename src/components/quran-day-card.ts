@@ -6,10 +6,16 @@ import { h } from '../utils/dom';
 export function createQuranDayCard(
   plan: QuranDayPlan,
   isComplete: boolean,
+  isToday: boolean,
   onToggle: (day: number) => void
 ): HTMLElement {
+  let className = 'quran-day-card';
+  if (isComplete) className += ' completed';
+  if (isToday) className += ' today';
+
   const card = h('div', {
-    className: `quran-day-card${isComplete ? ' completed' : ''}`,
+    className,
+    id: isToday ? 'quran-today' : undefined,
   });
 
   const info = h('div', { className: 'quran-day-info' });
@@ -24,6 +30,7 @@ export function createQuranDayCard(
   card.appendChild(info);
   card.appendChild(checkbox);
 
+  // Entire card tappable
   card.addEventListener('click', () => onToggle(plan.day));
 
   return card;

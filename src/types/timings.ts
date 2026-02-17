@@ -16,6 +16,7 @@ export interface DayTiming {
   hijriDay: number;
   hijriYear: number;
   isRamadan: boolean;
+  ramadanDay: number | null;
   holidays: string[];
   prayers: NormalizedPrayers;
 }
@@ -40,6 +41,7 @@ export const PRAYER_NAMES: PrayerName[] = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'M
 export interface NextPrayer {
   name: PrayerName;
   time: string;
+  prevTime: string;       // start time for progress bar label
   remainingMs: number;
   remainingDisplay: string;
   progress: number; // 0-1

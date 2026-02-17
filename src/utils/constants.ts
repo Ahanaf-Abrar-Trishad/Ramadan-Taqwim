@@ -1,6 +1,6 @@
 // src/utils/constants.ts
 
-export const APP_NAME = 'Ramadan Bangladesh';
+export const APP_NAME = 'Ramadan Taqwim';
 export const API_BASE = 'https://api.aladhan.com/v1';
 export const COUNTRY = 'Bangladesh';
 export const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours

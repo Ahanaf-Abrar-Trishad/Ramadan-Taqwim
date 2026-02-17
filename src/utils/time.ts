@@ -43,6 +43,14 @@ export function formatTime12h(time: string): string {
 }
 
 /**
+ * Format time string based on user preference
+ */
+export function formatTime(time: string, format: '12h' | '24h'): string {
+  if (format === '12h') return formatTime12h(time);
+  return time;
+}
+
+/**
  * Get current time as "HH:mm"
  */
 export function nowHHmm(): string {

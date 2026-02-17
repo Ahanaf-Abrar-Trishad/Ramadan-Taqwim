@@ -18,6 +18,10 @@ export async function renderSettingsPage(container: HTMLElement): Promise<void> 
   const state = appStore.getState();
   const settings = { ...state.settings };
 
+  // Ensure new fields have defaults for older saved data
+  if (!settings.timeFormat) settings.timeFormat = '12h';
+  if (!settings.theme) settings.theme = 'dark';
+
   // Fetch methods if not loaded
   let methods = state.methods;
   if (!methods) {
@@ -66,7 +70,6 @@ export async function renderSettingsPage(container: HTMLElement): Promise<void> 
   methodGroup.appendChild(h('label', { className: 'form-label' }, 'Calculation Method'));
   const methodSelect = h('select', { className: 'form-select', 'aria-label': 'Select calculation method' }) as HTMLSelectElement;
 
-  // Show recommended first
   const recommended = methods.filter(m => RECOMMENDED_METHOD_IDS.includes(m.id));
   const others = methods.filter(m => !RECOMMENDED_METHOD_IDS.includes(m.id));
 
@@ -124,29 +127,47 @@ export async function renderSettingsPage(container: HTMLElement): Promise<void> 
   schoolGroup.appendChild(schoolRadios);
   form.appendChild(schoolGroup);
 
-  // Theme picker
+  // Theme picker (Dark / Light / System)
   const themeGroup = h('div', { className: 'form-group' });
   themeGroup.appendChild(h('label', { className: 'form-label' }, 'Theme'));
   const themeRadios = h('div', { className: 'radio-group' });
 
-  const darkLabel = h('label', { className: 'radio-option' });
-  const darkInput = h('input', { type: 'radio', name: 'theme', value: 'dark' }) as HTMLInputElement;
-  if (settings.theme === 'dark') darkInput.checked = true;
-  darkInput.addEventListener('change', () => { settings.theme = 'dark'; });
-  darkLabel.appendChild(darkInput);
-  darkLabel.appendChild(document.createTextNode(' Dark'));
-  themeRadios.appendChild(darkLabel);
-
-  const lightLabel = h('label', { className: 'radio-option' });
-  const lightInput = h('input', { type: 'radio', name: 'theme', value: 'light' }) as HTMLInputElement;
-  if (settings.theme === 'light') lightInput.checked = true;
-  lightInput.addEventListener('change', () => { settings.theme = 'light'; });
-  lightLabel.appendChild(lightInput);
-  lightLabel.appendChild(document.createTextNode(' Light'));
-  themeRadios.appendChild(lightLabel);
+  for (const themeOpt of ['dark', 'light', 'system'] as const) {
+    const label = h('label', { className: 'radio-option' });
+    const input = h('input', { type: 'radio', name: 'theme', value: themeOpt }) as HTMLInputElement;
+    if (settings.theme === themeOpt) input.checked = true;
+    input.addEventListener('change', () => { settings.theme = themeOpt; });
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(` ${themeOpt.charAt(0).toUpperCase() + themeOpt.slice(1)}`));
+    themeRadios.appendChild(label);
+  }
 
   themeGroup.appendChild(themeRadios);
   form.appendChild(themeGroup);
+
+  // Time format picker (12h / 24h)
+  const timeGroup = h('div', { className: 'form-group' });
+  timeGroup.appendChild(h('label', { className: 'form-label' }, 'Time Format'));
+  const timeRadios = h('div', { className: 'radio-group radio-group-row' });
+
+  const tf12Label = h('label', { className: 'radio-option' });
+  const tf12Input = h('input', { type: 'radio', name: 'timeFormat', value: '12h' }) as HTMLInputElement;
+  if (settings.timeFormat === '12h') tf12Input.checked = true;
+  tf12Input.addEventListener('change', () => { settings.timeFormat = '12h'; });
+  tf12Label.appendChild(tf12Input);
+  tf12Label.appendChild(document.createTextNode(' 12-hour (4:52 AM)'));
+  timeRadios.appendChild(tf12Label);
+
+  const tf24Label = h('label', { className: 'radio-option' });
+  const tf24Input = h('input', { type: 'radio', name: 'timeFormat', value: '24h' }) as HTMLInputElement;
+  if (settings.timeFormat === '24h') tf24Input.checked = true;
+  tf24Input.addEventListener('change', () => { settings.timeFormat = '24h'; });
+  tf24Label.appendChild(tf24Input);
+  tf24Label.appendChild(document.createTextNode(' 24-hour (04:52)'));
+  timeRadios.appendChild(tf24Label);
+
+  timeGroup.appendChild(timeRadios);
+  form.appendChild(timeGroup);
 
   // Save button
   const saveBtn = h('button', { className: 'btn-save' }, '💾 Save Settings') as HTMLButtonElement;
@@ -159,11 +180,13 @@ export async function renderSettingsPage(container: HTMLElement): Promise<void> 
     saveBtn.disabled = true;
     saveBtn.textContent = 'Saving...';
 
+    // Apply theme
+    applyTheme(settings.theme);
+
     // Save to localStorage
     saveSettings(settings);
-    document.documentElement.setAttribute('data-theme', settings.theme);
 
-    // Check if cache key changed
+    // Check if cache key changed (single fetch)
     const y = currentYear();
     const m = currentMonth();
     const oldKey = buildCacheKey(
@@ -174,7 +197,6 @@ export async function renderSettingsPage(container: HTMLElement): Promise<void> 
     );
 
     if (oldKey !== newKey) {
-      // Fetch new data
       const result = await fetchAndStore(settings, y, m);
       if (result.data) {
         appStore.setState({
@@ -194,7 +216,6 @@ export async function renderSettingsPage(container: HTMLElement): Promise<void> 
       appStore.setState({ settings });
     }
 
-    // Show toast
     showToast('Settings saved');
     router.navigate('today');
   });
@@ -202,15 +223,24 @@ export async function renderSettingsPage(container: HTMLElement): Promise<void> 
   form.appendChild(saveBtn);
   fragment.appendChild(form);
 
-  // Footer
+  // Transparency footer
   const footer = h('div', { className: 'settings-footer' });
   footer.innerHTML = `
-    App version 1.0.0<br>
-    Data from <a href="https://aladhan.com" target="_blank" rel="noopener">AlAdhan.com</a>
+    Data provided by <a href="https://aladhan.com" target="_blank" rel="noopener">AlAdhan.com</a><br>
+    App version 1.1.0
   `;
   fragment.appendChild(footer);
 
   render(container, fragment as unknown as Node);
+}
+
+function applyTheme(theme: 'dark' | 'light' | 'system'): void {
+  if (theme === 'system') {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
 }
 
 function showToast(message: string): void {

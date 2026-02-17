@@ -22,7 +22,18 @@ async function main() {
   const settings = loadSettings();
 
   // Apply theme
-  document.documentElement.setAttribute('data-theme', settings.theme);
+  if (settings.theme === 'system') {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    // Listen for OS theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (appStore.getState().settings.theme === 'system') {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      }
+    });
+  } else {
+    document.documentElement.setAttribute('data-theme', settings.theme);
+  }
 
   // 2. Initialize store
   const initialState: AppState = {

@@ -52,6 +52,7 @@ export function normalizeDay(raw: AlAdhanDayRaw): DayTiming {
     hijriDay: parseInt(hijri.day, 10),
     hijriYear: parseInt(hijri.year, 10),
     isRamadan: hijri.month.number === 9,
+    ramadanDay: hijri.month.number === 9 ? parseInt(hijri.day, 10) : null,
     holidays,
     prayers,
   };

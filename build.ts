@@ -7,8 +7,18 @@ const DIST = join(ROOT, 'dist');
 
 // 1. Clean & create dist
 if (existsSync(DIST)) {
-  const { rmSync } = await import('fs');
-  rmSync(DIST, { recursive: true });
+  try {
+    const { rmSync } = await import('fs');
+    rmSync(DIST, { recursive: true, force: true });
+  } catch {
+    // If dist is locked, try removing contents individually
+    const { readdirSync, rmSync } = await import('fs');
+    try {
+      for (const entry of readdirSync(DIST)) {
+        try { rmSync(join(DIST, entry), { recursive: true, force: true }); } catch {}
+      }
+    } catch {}
+  }
 }
 mkdirSync(DIST, { recursive: true });
 mkdirSync(join(DIST, 'styles'), { recursive: true });

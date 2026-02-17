@@ -35,18 +35,41 @@ export function renderCalendarPage(container: HTMLElement): void {
   nav.appendChild(nextBtn);
   fragment.appendChild(nav);
 
+  // Action bar: Jump to today + This month
+  const isCurrentMonth = displayYear === currentYear() && displayMonth === currentMonth();
+  if (!isCurrentMonth) {
+    const actions = h('div', { className: 'calendar-actions' });
+    const todayBtn = h('button', { className: 'calendar-action-btn' }, '📍 Jump to today');
+    todayBtn.addEventListener('click', () => {
+      displayYear = currentYear();
+      displayMonth = currentMonth();
+      renderCalendarPage(container);
+      requestAnimationFrame(() => {
+        const todayRow = container.querySelector('#today-row');
+        if (todayRow) todayRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+    const thisMonthBtn = h('button', { className: 'calendar-action-btn' }, '📅 This month');
+    thisMonthBtn.addEventListener('click', () => {
+      displayYear = currentYear();
+      displayMonth = currentMonth();
+      renderCalendarPage(container);
+    });
+    actions.appendChild(todayBtn);
+    actions.appendChild(thisMonthBtn);
+    fragment.appendChild(actions);
+  }
+
   // Determine which month data to show
   const monthData = getDisplayMonthData();
 
   if (!monthData) {
-    // Need to fetch this month
     if (state.isLoading) {
       fragment.appendChild(createLoadingSkeleton());
     } else {
       const loading = h('div', { className: 'error-state' });
       loading.appendChild(h('div', { className: 'error-message' }, 'Loading calendar data...'));
       fragment.appendChild(loading);
-      // Trigger fetch
       fetchDisplayMonth(container);
     }
     render(container, fragment as unknown as Node);
@@ -59,6 +82,14 @@ export function renderCalendarPage(container: HTMLElement): void {
   }
 
   render(container, fragment as unknown as Node);
+
+  // Auto-scroll to today if visible
+  if (isCurrentMonth) {
+    requestAnimationFrame(() => {
+      const todayRow = container.querySelector('#today-row');
+      if (todayRow) todayRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
 }
 
 function getDisplayMonthData() {

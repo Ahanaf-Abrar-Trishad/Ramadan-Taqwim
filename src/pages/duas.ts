@@ -17,6 +17,7 @@ const TABS: { id: TabFilter; label: string }[] = [
 ];
 
 let activeTab: TabFilter = 'iftar';
+let searchQuery = '';
 
 export async function renderDuasPage(container: HTMLElement): Promise<void> {
   const favorites = await getFavorites();
@@ -25,7 +26,23 @@ export async function renderDuasPage(container: HTMLElement): Promise<void> {
   // Title
   fragment.appendChild(h('h1', { className: 'page-title' }, 'Duas'));
 
-  // Category tabs
+  // Search input
+  const searchWrap = h('div', { className: 'dua-search-wrap' });
+  const searchInput = h('input', {
+    className: 'dua-search',
+    type: 'text',
+    placeholder: '🔍 Search duas...',
+    value: searchQuery,
+  }) as HTMLInputElement;
+  searchInput.addEventListener('input', () => {
+    searchQuery = searchInput.value;
+    renderDuasPage(container);
+  });
+  searchWrap.appendChild(searchInput);
+  fragment.appendChild(searchWrap);
+
+  // Category tabs with fade-edge wrapper
+  const tabsWrap = h('div', { className: 'category-tabs-wrap' });
   const tabs = h('div', { className: 'category-tabs', role: 'tablist' });
   for (const tab of TABS) {
     const btn = h('button', {
@@ -40,7 +57,8 @@ export async function renderDuasPage(container: HTMLElement): Promise<void> {
     });
     tabs.appendChild(btn);
   }
-  fragment.appendChild(tabs);
+  tabsWrap.appendChild(tabs);
+  fragment.appendChild(tabsWrap);
 
   // Filter duas
   const duas = duasData as Dua[];
@@ -51,10 +69,21 @@ export async function renderDuasPage(container: HTMLElement): Promise<void> {
     filtered = duas.filter(d => d.category === activeTab);
   }
 
+  // Apply search filter
+  if (searchQuery.trim()) {
+    const q = searchQuery.toLowerCase();
+    filtered = filtered.filter(d =>
+      d.titleEn.toLowerCase().includes(q) ||
+      d.transliteration.toLowerCase().includes(q) ||
+      d.translationEn.toLowerCase().includes(q)
+    );
+  }
+
   if (filtered.length === 0) {
     const empty = h('div', { className: 'error-state' });
     empty.appendChild(h('div', { className: 'error-icon' }, activeTab === 'favorites' ? '♡' : '🤲'));
     empty.appendChild(h('div', { className: 'error-message' },
+      searchQuery ? 'No duas match your search.' :
       activeTab === 'favorites'
         ? 'No favorites yet. Tap the heart on any dua to save it.'
         : 'No duas in this category.'
@@ -70,4 +99,13 @@ export async function renderDuasPage(container: HTMLElement): Promise<void> {
   }
 
   render(container, fragment as unknown as Node);
+
+  // Restore focus to search if it was active
+  if (searchQuery) {
+    const input = container.querySelector('.dua-search') as HTMLInputElement;
+    if (input) {
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
+  }
 }

@@ -2,6 +2,7 @@
 
 import type { AlAdhanDayRaw } from '../types/api';
 import type { DayTiming, MonthTimings, NormalizedPrayers } from '../types/timings';
+import { applyRamadanOverrides } from '../utils/ramadan-override';
 
 /**
  * Strip timezone suffix from AlAdhan time string
@@ -60,9 +61,10 @@ export function normalizeDay(raw: AlAdhanDayRaw): DayTiming {
  * Normalize full month response
  */
 export function normalizeMonth(rawData: AlAdhanDayRaw[], cacheKey: string): MonthTimings {
+  const days = applyRamadanOverrides(rawData.map(normalizeDay));
   return {
     cacheKey,
     fetchedAt: new Date().toISOString(),
-    days: rawData.map(normalizeDay),
+    days,
   };
 }

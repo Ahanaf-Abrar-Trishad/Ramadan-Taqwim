@@ -6,11 +6,19 @@ import { getCachedMonth, setCachedMonth, isCacheFresh } from '../store/cache-sto
 import { buildCacheKey } from '../store/settings-store';
 import { getMonthlyCalendar } from '../api/aladhan';
 import { currentYear, currentMonth } from '../utils/date';
+import { applyRamadanOverrides } from '../utils/ramadan-override';
 
 export interface CacheResult {
   data: MonthTimings | null;
   source: 'fresh-cache' | 'stale-cache' | 'network' | 'error';
   error?: string;
+}
+
+function withRamadanOverrides(data: MonthTimings): MonthTimings {
+  return {
+    ...data,
+    days: applyRamadanOverrides(data.days),
+  };
 }
 
 /**
@@ -28,12 +36,13 @@ export async function loadMonthData(
   // Check cache
   const cached = await getCachedMonth(key);
   if (cached) {
+    const corrected = withRamadanOverrides(cached);
     if (isCacheFresh(cached)) {
-      return { data: cached, source: 'fresh-cache' };
+      return { data: corrected, source: 'fresh-cache' };
     }
     // Stale cache — return it but trigger background refresh
     backgroundRefresh(settings, y, m);
-    return { data: cached, source: 'stale-cache' };
+    return { data: corrected, source: 'stale-cache' };
   }
 
   // No cache — must fetch
@@ -56,8 +65,9 @@ export async function fetchAndStore(
       methodId: settings.methodId,
       school: settings.school,
     });
-    await setCachedMonth(data);
-    return { data, source: 'network' };
+    const corrected = withRamadanOverrides(data);
+    await setCachedMonth(corrected);
+    return { data: corrected, source: 'network' };
   } catch (err: any) {
     return { data: null, source: 'error', error: err.message };
   }

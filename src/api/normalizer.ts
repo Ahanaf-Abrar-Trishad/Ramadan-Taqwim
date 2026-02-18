@@ -39,7 +39,6 @@ export function normalizeDay(raw: AlAdhanDayRaw): DayTiming {
     Maghrib: stripTimezone(t.Maghrib || ''),
     Isha: stripTimezone(t.Isha || ''),
     SehriEnds: fajr,
-    SehriEndsLabel: 'Fajr',
     Iftar: stripTimezone(t.Maghrib || ''),
   };
 

@@ -20,7 +20,7 @@ Ramadan Taqwim: a mobile-first PWA for Bangladeshi Muslims showing Ramadan praye
 | T8 | Ramadan day counter visible during Ramadan | ☐ |
 | T9 | Trust footer: City · Method · School · Offsets status | ☐ |
 | T10 | Countdown updates every 1 second without re-rendering full page | ☐ |
-| T11 | SehriEnds uses Imsak (Fajr fallback) consistently | ☐ |
+| T11 | SehriEnds always equals Fajr time (no Imsak) | ☐ |
 
 ### 2. Calendar (#/calendar)
 | # | Criterion | Done |

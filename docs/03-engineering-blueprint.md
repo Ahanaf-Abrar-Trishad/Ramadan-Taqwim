@@ -28,11 +28,9 @@ interface AppSettings {
 ### NormalizedPrayers (src/types/timings.ts)
 ```ts
 interface NormalizedPrayers {
-  Imsak: string;  // retained for raw
   Fajr: string; Sunrise: string; Dhuhr: string;
   Asr: string; Maghrib: string; Isha: string;
-  SehriEnds: string;      // = Imsak or Fajr fallback
-  SehriEndsLabel: string;  // "Imsak" | "Fajr"
+  SehriEnds: string;      // Always = Fajr
   Iftar: string;           // = Maghrib
 }
 ```
@@ -94,7 +92,7 @@ interface SehriIftarCountdown {
 ### normalizer.ts
 | Function | Notes |
 |----------|-------|
-| `normalizeDay(raw)` | Strip timezone suffixes, map Imsak→SehriEnds, Maghrib→Iftar |
+| `normalizeDay(raw)` | Strip timezone suffixes, map Fajr→SehriEnds, Maghrib→Iftar |
 | `normalizeMonth(days, year, month)` | Normalize all days + apply ramadan-override.ts |
 
 ### time.ts

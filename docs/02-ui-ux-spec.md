@@ -54,7 +54,7 @@
 5 tabs: Today (🕌), Calendar (📅), Duas (🤲), Quran (📖), Settings (⚙). Fixed bottom. Active = gold. Each tab ≥ 44px.
 
 ### 2. `<SehriIftarHero>` — sehri-iftar-hero.ts
-Two-card grid. Left = Sehri Ends (time + "Imsak" sublabel). Right = Iftar (time). Gold border, decorative circle overlay.
+Two-card grid. Left = Sehri Ends (time + "Fajr" sublabel). Right = Iftar (time). Gold border, decorative circle overlay.
 
 ### 3. `<CountdownHero>` — countdown-timer.ts (rewritten)
 Single card. Shows primary event countdown (Sehri Ends / Iftar during Ramadan, or Next Prayer). Toggle pill: "Iftar | Next Prayer". Progress bar with start/end time labels beneath. Large tabular-nums display.

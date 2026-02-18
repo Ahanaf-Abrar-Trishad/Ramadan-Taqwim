@@ -61,7 +61,7 @@ export function isNextPrayer(prayerName: PrayerName, nextPrayer: NextPrayer | nu
 
 /**
  * During Ramadan, determine countdown context:
- * - Before Sehri ends (Imsak/Fajr) → "Sehri Ends In"
+ * - Before Sehri ends (Fajr) → "Sehri Ends In"
  * - After Sehri, before Iftar (Maghrib) → "Iftar In"
  * - After Iftar → null (day is done)
  */

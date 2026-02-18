@@ -22,15 +22,13 @@ export interface DayTiming {
 }
 
 export interface NormalizedPrayers {
-  Imsak: string;
   Fajr: string;
   Sunrise: string;
   Dhuhr: string;
   Asr: string;
   Maghrib: string;
   Isha: string;
-  SehriEnds: string;
-  SehriEndsLabel: string;
+  SehriEnds: string;       // Always = Fajr
   Iftar: string;
 }
 

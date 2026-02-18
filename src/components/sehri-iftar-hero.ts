@@ -13,7 +13,7 @@ export function createSehriIftarHero(prayers: NormalizedPrayers): HTMLElement {
   const sehri = h('div', { className: 'hero-card' });
   sehri.appendChild(h('div', { className: 'hero-label' }, 'Sehri Ends'));
   sehri.appendChild(h('div', { className: 'hero-time' }, formatTime(prayers.SehriEnds, tf)));
-  sehri.appendChild(h('div', { className: 'hero-sublabel' }, `(${prayers.SehriEndsLabel})`));
+  sehri.appendChild(h('div', { className: 'hero-sublabel' }, '(Fajr)'));
 
   // Iftar card
   const iftar = h('div', { className: 'hero-card' });

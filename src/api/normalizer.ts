@@ -20,25 +20,26 @@ export function normalizeDay(raw: AlAdhanDayRaw): DayTiming {
   const hijri = raw.date.hijri;
   const greg = raw.date.gregorian;
 
-  const imsak = stripTimezone(t.Imsak || '');
   const fajr = stripTimezone(t.Fajr || '');
-  const hasImsak = imsak && imsak !== '00:00' && imsak !== 'Invalid date';
 
   const holidays: string[] = [
     ...(hijri.holidays || []),
     ...(hijri.adjustedHolidays || []),
   ];
 
+  // Sehri ends at Fajr — not Imsak.
+  // Imsak (stopping ~10 min before Fajr) has no basis in the Sunnah.
+  // "Eat and drink until the white thread of dawn appears to you
+  //  distinct from the black thread of night." [al-Baqarah 2:187]
   const prayers: NormalizedPrayers = {
-    Imsak: imsak,
     Fajr: fajr,
     Sunrise: stripTimezone(t.Sunrise || ''),
     Dhuhr: stripTimezone(t.Dhuhr || ''),
     Asr: stripTimezone(t.Asr || ''),
     Maghrib: stripTimezone(t.Maghrib || ''),
     Isha: stripTimezone(t.Isha || ''),
-    SehriEnds: hasImsak ? imsak : fajr,
-    SehriEndsLabel: hasImsak ? 'Imsak' : 'Fajr (est.)',
+    SehriEnds: fajr,
+    SehriEndsLabel: 'Fajr',
     Iftar: stripTimezone(t.Maghrib || ''),
   };
 

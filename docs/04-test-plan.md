@@ -12,12 +12,12 @@
 | ID | Test Case | Page | Steps |
 |----|-----------|------|-------|
 | P0-1 | Ramadan override: Day 1 = 19-02-2026 | Today | Load app on Feb 19 2026 → verify hijriDay=1, isRamadan=true |
-| P0-2 | Sehri/Iftar times correct | Today | Compare SehriEnds/Iftar to AlAdhan raw Imsak/Maghrib for Dhaka |
+| P0-2 | Sehri/Iftar times correct | Today | Compare SehriEnds/Iftar to AlAdhan raw Fajr/Maghrib for Dhaka |
 | P0-3 | Countdown updates every second | Today | Watch countdown for 5s → values decrease monotonically |
 | P0-4 | Settings save triggers fetch | Settings | Change city, save → verify new data loads, only 1 API call |
 | P0-5 | Offline: cached data renders | Today | Disconnect network → reload → prayer times still visible |
 | P0-6 | Cache key change invalidates | Settings | Change method → save → verify fresh data fetched |
-| P0-7 | SehriEnds = Imsak (or Fajr fallback) | Today | If API returns Imsak, SehriEnds = Imsak. If no Imsak, = Fajr |
+| P0-7 | SehriEnds = Fajr (always) | Today | SehriEnds always equals Fajr time — Imsak is not used |
 
 ## P1 — Important
 

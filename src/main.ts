@@ -1,5 +1,6 @@
 // src/main.ts — Application Entry Point
 
+import { inject } from '@vercel/analytics';
 import type { AppState } from './app';
 import { createStore, appStore } from './app';
 import { router, type Route } from './router';
@@ -18,6 +19,8 @@ import { renderQuranPage } from './pages/quran';
 import { $ } from './utils/dom';
 
 async function main() {
+  inject();
+
   // 1. Load settings (sync)
   const settings = loadSettings();
 

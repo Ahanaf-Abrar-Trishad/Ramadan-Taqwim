@@ -9,5 +9,8 @@
     "preview": "bunx serve dist",
     "test": "bun test"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "@vercel/analytics": "^1.6.1"
+  }
 }

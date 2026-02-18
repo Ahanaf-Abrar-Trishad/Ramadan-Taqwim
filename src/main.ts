@@ -16,8 +16,12 @@ import { renderSettingsPage } from './pages/settings';
 import { renderDuasPage } from './pages/duas';
 import { renderQuranPage } from './pages/quran';
 import { $ } from './utils/dom';
+import { inject } from '@vercel/analytics';
 
 async function main() {
+  // Initialize Vercel Web Analytics
+  inject();
+
   // 1. Load settings (sync)
   const settings = loadSettings();
 

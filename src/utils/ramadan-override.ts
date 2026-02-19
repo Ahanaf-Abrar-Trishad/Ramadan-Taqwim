@@ -71,10 +71,17 @@ function normalizeSpecialHolidays(
 ): string[] {
   const others = holidays.filter(h => !isSpecialHoliday(h));
   const special: string[] = [];
+  const ramadanDay = diff + 1;
+  const isOddNightInLastTen = (
+    ramadanDay >= 21
+    && ramadanDay <= 29
+    && ramadanDay % 2 === 1
+  );
 
   // Derived from Ramadan Day 1:
-  // Day 27 => diff=26, Eid day => diff=dayCount.
-  if (diff === 26) special.push(LAYLAT_LABEL);
+  // Odd nights of the last 10 Ramadan nights => days 21,23,25,27,29
+  // Eid day => diff=dayCount.
+  if (isOddNightInLastTen) special.push(LAYLAT_LABEL);
   if (diff === override.dayCount) special.push(EID_LABEL);
 
   return dedupeHolidays([...special, ...others]);

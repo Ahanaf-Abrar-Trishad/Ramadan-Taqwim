@@ -19,6 +19,7 @@ export function createDayRow(day: DayTiming): HTMLElement {
   let className = 'day-row';
   if (isToday) className += ' today';
   if (!isRamadan) className += ' non-ramadan';
+  if (hasEidAlFitr) className += ' eid-day';
 
   const row = h('div', { className, id: isToday ? 'today-row' : undefined });
 

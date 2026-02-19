@@ -4,6 +4,8 @@ import type { DayTiming } from '../types/timings';
 import { todayDDMMYYYY } from '../utils/date';
 import { h } from '../utils/dom';
 
+const EID_LABEL = 'Eid al-Fitr';
+
 /**
  * Create a 7-column calendar grid for a month of days
  */
@@ -38,11 +40,13 @@ export function createCalendarGrid(
     const isToday = day.dateGregorian === todayKey;
     const isRamadan = day.isRamadan;
     const hasHoliday = day.holidays.length > 0;
+    const hasEidAlFitr = day.holidays.includes(EID_LABEL);
 
     let className = 'cal-grid-cell';
     if (isToday) className += ' today';
     if (!isRamadan) className += ' non-ramadan';
     if (hasHoliday) className += ' holiday';
+    if (hasEidAlFitr) className += ' eid-day';
 
     const cell = h('button', { className, 'aria-label': day.dateReadable });
 

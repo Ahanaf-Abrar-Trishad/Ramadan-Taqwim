@@ -6,11 +6,14 @@ import { formatTime } from '../utils/time';
 import { appStore } from '../app';
 import { h } from '../utils/dom';
 
+const LAYLAT_LABEL = 'Laylat al-Qadr';
+const EID_LABEL = 'Eid al-Fitr';
+
 export function createDayRow(day: DayTiming): HTMLElement {
   const isToday = day.dateGregorian === todayDDMMYYYY();
   const isRamadan = day.isRamadan;
-  const hasLailatulQadr = day.holidays.some(h => h.toLowerCase().includes('lailat'));
-  const hasEid = day.holidays.some(h => h.toLowerCase().includes('eid'));
+  const hasLaylatAlQadr = day.holidays.includes(LAYLAT_LABEL);
+  const hasEidAlFitr = day.holidays.includes(EID_LABEL);
   const tf = appStore.getState().settings.timeFormat;
 
   let className = 'day-row';
@@ -46,11 +49,11 @@ export function createDayRow(day: DayTiming): HTMLElement {
   if (isToday) {
     row.appendChild(h('span', { className: 'day-badge today-badge' }, 'TODAY'));
   }
-  if (hasLailatulQadr) {
-    row.appendChild(h('span', { className: 'day-badge holiday-badge' }, '⭐ Lailat-ul-Qadr'));
+  if (hasLaylatAlQadr) {
+    row.appendChild(h('span', { className: 'day-badge holiday-badge' }, '⭐ Laylat al-Qadr'));
   }
-  if (hasEid) {
-    row.appendChild(h('span', { className: 'day-badge eid-badge' }, '🎉 Eid ul-Fitr'));
+  if (hasEidAlFitr) {
+    row.appendChild(h('span', { className: 'day-badge eid-badge' }, '🎉 Eid al-Fitr'));
   }
 
   return row;

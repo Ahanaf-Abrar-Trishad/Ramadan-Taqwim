@@ -6,6 +6,22 @@ import { formatTime } from '../utils/time';
 import { appStore } from '../app';
 import { h } from '../utils/dom';
 
+const LAYLAT_LABEL = 'Laylat al-Qadr';
+const EID_LABEL = 'Eid al-Fitr';
+
+function orderHolidays(holidays: string[]): string[] {
+  const hasLaylat = holidays.includes(LAYLAT_LABEL);
+  const hasEid = holidays.includes(EID_LABEL);
+  const others = holidays.filter(h => h !== LAYLAT_LABEL && h !== EID_LABEL);
+
+  const ordered: string[] = [];
+  if (hasLaylat) ordered.push(LAYLAT_LABEL);
+  if (hasEid) ordered.push(EID_LABEL);
+  ordered.push(...others);
+
+  return ordered;
+}
+
 /**
  * Create a bottom sheet overlay showing full day details
  */
@@ -63,7 +79,7 @@ export function showDayDetailsSheet(day: DayTiming): void {
   // Holidays
   if (day.holidays.length > 0) {
     const holidays = h('div', { className: 'sheet-holidays' });
-    for (const hol of day.holidays) {
+    for (const hol of orderHolidays(day.holidays)) {
       holidays.appendChild(h('span', { className: 'sheet-holiday-badge' }, hol));
     }
     sheet.appendChild(holidays);

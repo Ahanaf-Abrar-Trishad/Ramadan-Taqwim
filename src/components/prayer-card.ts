@@ -20,8 +20,11 @@ export function createPrayerList(day: DayTiming, nextPrayer: NextPrayer | null):
       className: `prayer-card${past && !isNow ? ' past' : ''}${isNow ? ' now' : ''}`,
     });
 
-    // Left: name + optional "Now" badge
+    // Left: status icon + name + optional "Now" badge
     const left = h('div', { className: 'prayer-left' });
+    if (past && !isNow) {
+      left.appendChild(h('span', { className: 'prayer-done-icon' }, '✓'));
+    }
     left.appendChild(h('span', { className: 'prayer-name' }, name));
     if (isNow) {
       left.appendChild(h('span', { className: 'prayer-now-badge' }, 'Now'));

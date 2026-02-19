@@ -19,6 +19,23 @@ import { APP_NAME } from '../utils/constants';
 let countdownInterval: number | null = null;
 let heroMode: HeroMode = 'iftar';
 
+/**
+ * Get previous day's Isha time from month data for accurate progress bars
+ */
+function getPrevDayIsha(day: DayTiming): string | undefined {
+  const state = appStore.getState();
+  const [dd, mm, yyyy] = day.dateGregorian.split('-').map(Number);
+  const prevDate = new Date(yyyy, mm - 1, dd - 1);
+  const prevKey = `${String(prevDate.getDate()).padStart(2, '0')}-${String(prevDate.getMonth() + 1).padStart(2, '0')}-${prevDate.getFullYear()}`;
+
+  for (const source of [state.currentMonthData, state.otherMonthData]) {
+    if (!source) continue;
+    const found = source.days.find(d => d.dateGregorian === prevKey);
+    if (found) return found.prayers.Isha;
+  }
+  return undefined;
+}
+
 export function renderTodayPage(container: HTMLElement): void {
   const state = appStore.getState();
 
@@ -68,8 +85,8 @@ export function renderTodayPage(container: HTMLElement): void {
   fragment.appendChild(createSehriIftarHero(day.prayers));
 
   // Single countdown hero with toggle
-  const siCountdown = getSehriIftarCountdown(day);
-  const nextPrayer = getNextPrayer(day);
+  const siCountdown = getSehriIftarCountdown(day, getPrevDayIsha(day));
+  const nextPrayer = getNextPrayer(day, getPrevDayIsha(day));
 
   // If not Ramadan, default to next-prayer mode
   if (!siCountdown) heroMode = 'next-prayer';
@@ -83,8 +100,8 @@ export function renderTodayPage(container: HTMLElement): void {
       heroMode = btn.textContent === 'Iftar' ? 'iftar' : 'next-prayer';
       // Re-render hero
       const newHero = createCountdownHero(
-        getSehriIftarCountdown(day),
-        getNextPrayer(day),
+        getSehriIftarCountdown(day, getPrevDayIsha(day)),
+        getNextPrayer(day, getPrevDayIsha(day)),
         heroMode
       );
       // Attach handlers to new hero
@@ -122,8 +139,8 @@ export function renderTodayPage(container: HTMLElement): void {
   // Start countdown interval (1s)
   const heroEl = container.querySelector('.countdown-hero') as HTMLElement;
   countdownInterval = window.setInterval(() => {
-    const updatedSI = getSehriIftarCountdown(day);
-    const updated = getNextPrayer(day);
+    const updatedSI = getSehriIftarCountdown(day, getPrevDayIsha(day));
+    const updated = getNextPrayer(day, getPrevDayIsha(day));
 
     if (heroEl) {
       updateCountdownHero(heroEl, updatedSI, updated, heroMode);

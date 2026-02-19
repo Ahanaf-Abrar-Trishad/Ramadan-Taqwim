@@ -195,6 +195,14 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* "Starts at" / "Ends at" line */
+.hero-cd-starts-at {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+  font-weight: 500;
+}
+
 /* Toggle pill */
 .hero-cd-toggle {
   display: flex;
@@ -290,6 +298,13 @@
   color: var(--accent-gold);
 }
 
+/* Done checkmark for past prayers */
+.prayer-done-icon {
+  font-size: var(--font-size-sm);
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
 /* ===== Day Row (Calendar) ===== */
 .day-row {
   background: var(--bg-secondary);
@@ -351,6 +366,15 @@
   color: var(--text-secondary);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+}
+
+/* Ramadan day label in day row */
+.day-row-ramadan-day {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--accent-gold);
+  font-weight: 500;
+  margin-top: var(--space-xs);
 }
 
 .day-badge {
@@ -868,4 +892,259 @@
 .skeleton-card {
   height: 50px;
   margin-bottom: var(--space-sm);
+}
+
+/* ===== Calendar Title Row ===== */
+.calendar-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.calendar-title-row .page-title {
+  margin-bottom: 0;
+}
+
+.view-toggle {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+/* ===== Calendar Grid ===== */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: var(--space-lg);
+}
+
+.cal-grid-header {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: var(--space-sm) 0;
+  letter-spacing: 0.5px;
+}
+
+.cal-grid-spacer {
+  /* Empty cell for alignment */
+}
+
+.cal-grid-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--space-sm) var(--space-xs);
+  min-height: 52px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cal-grid-cell:hover {
+  border-color: var(--accent-gold);
+}
+
+.cal-grid-cell.today {
+  border-color: var(--accent-gold);
+  background: var(--surface-highlight);
+}
+
+.cal-grid-cell.non-ramadan {
+  opacity: 0.5;
+}
+
+.cal-grid-cell.holiday {
+  background: rgba(212, 168, 83, 0.08);
+}
+
+.cal-grid-day {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cal-grid-cell.today .cal-grid-day {
+  color: var(--accent-gold);
+}
+
+.cal-grid-ramadan {
+  font-size: 9px;
+  color: var(--accent-gold);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* ===== Day Details Bottom Sheet ===== */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 300;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.sheet-backdrop.show {
+  opacity: 1;
+}
+
+.day-details-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: var(--max-width);
+  max-height: 85vh;
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: var(--space-md) var(--space-lg) var(--space-xl);
+  z-index: 301;
+  overflow-y: auto;
+  transition: transform 0.3s ease-out;
+}
+
+.day-details-sheet.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  margin: 0 auto var(--space-lg);
+}
+
+.sheet-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.sheet-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sheet-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+}
+
+.sheet-ramadan-day {
+  font-size: var(--font-size-sm);
+  color: var(--accent-gold);
+  font-weight: 600;
+  margin-top: var(--space-xs);
+}
+
+.sheet-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.sheet-hero-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.sheet-hero-card.iftar {
+  border-color: var(--accent-gold);
+}
+
+.sheet-hero-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.sheet-hero-time {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.sheet-hero-card.iftar .sheet-hero-time {
+  color: var(--accent-gold);
+}
+
+.sheet-prayer-list {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-lg);
+}
+
+.sheet-prayer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border);
+}
+
+.sheet-prayer-row:last-child {
+  border-bottom: none;
+}
+
+.sheet-prayer-name {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.sheet-prayer-time {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.sheet-holidays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.sheet-holiday-badge {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  background: var(--surface-highlight);
+  color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+}
+
+.sheet-close-btn {
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  min-height: var(--min-tap-target);
 }

@@ -2,6 +2,8 @@
 
 import { appStore } from '../app';
 import { createDayRow } from '../components/day-row';
+import { createCalendarGrid } from '../components/calendar-grid';
+import { showDayDetailsSheet } from '../components/day-details-sheet';
 import { createLoadingSkeleton } from '../components/loading-skeleton';
 import { loadMonthData } from '../services/cache-manager';
 import { h, render } from '../utils/dom';
@@ -9,13 +11,40 @@ import { currentYear, currentMonth, monthName } from '../utils/date';
 
 let displayYear = currentYear();
 let displayMonth = currentMonth();
+type CalendarView = 'list' | 'grid';
+let calendarView: CalendarView = 'list';
 
 export function renderCalendarPage(container: HTMLElement): void {
   const state = appStore.getState();
   const fragment = document.createDocumentFragment();
 
-  // Page title
-  fragment.appendChild(h('h1', { className: 'page-title' }, 'Calendar'));
+  // Page title row with view toggle
+  const titleRow = h('div', { className: 'calendar-title-row' });
+  titleRow.appendChild(h('h1', { className: 'page-title' }, 'Calendar'));
+
+  const viewToggle = h('div', { className: 'view-toggle' });
+  const listBtn = h('button', {
+    className: `toggle-pill${calendarView === 'list' ? ' active' : ''}`,
+    'aria-label': 'List view',
+  }, '☰ List');
+  const gridBtn = h('button', {
+    className: `toggle-pill${calendarView === 'grid' ? ' active' : ''}`,
+    'aria-label': 'Grid view',
+  }, '▦ Grid');
+
+  listBtn.addEventListener('click', () => {
+    calendarView = 'list';
+    renderCalendarPage(container);
+  });
+  gridBtn.addEventListener('click', () => {
+    calendarView = 'grid';
+    renderCalendarPage(container);
+  });
+
+  viewToggle.appendChild(listBtn);
+  viewToggle.appendChild(gridBtn);
+  titleRow.appendChild(viewToggle);
+  fragment.appendChild(titleRow);
 
   // Month navigation
   const nav = h('div', { className: 'month-nav' });
@@ -76,15 +105,21 @@ export function renderCalendarPage(container: HTMLElement): void {
     return;
   }
 
-  // Render day rows
-  for (const day of monthData.days) {
-    fragment.appendChild(createDayRow(day));
+  // Render day rows or grid based on view mode
+  if (calendarView === 'grid') {
+    fragment.appendChild(createCalendarGrid(monthData.days, (day) => {
+      showDayDetailsSheet(day);
+    }));
+  } else {
+    for (const day of monthData.days) {
+      fragment.appendChild(createDayRow(day));
+    }
   }
 
   render(container, fragment as unknown as Node);
 
-  // Auto-scroll to today if visible
-  if (isCurrentMonth) {
+  // Auto-scroll to today if visible (list view only)
+  if (isCurrentMonth && calendarView === 'list') {
     requestAnimationFrame(() => {
       const todayRow = container.querySelector('#today-row');
       if (todayRow) todayRow.scrollIntoView({ behavior: 'smooth', block: 'center' });

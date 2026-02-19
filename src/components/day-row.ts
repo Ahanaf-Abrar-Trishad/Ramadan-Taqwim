@@ -32,10 +32,15 @@ export function createDayRow(day: DayTiming): HTMLElement {
   const iftarEl = h('span', { className: 'day-row-iftar' });
   iftarEl.innerHTML = `Iftar <strong>${formatTime(day.prayers.Iftar, tf)}</strong>`;
   const sehriEl = h('span', { className: 'day-row-sehri' });
-  sehriEl.innerHTML = `Sehri <strong>${formatTime(day.prayers.SehriEnds, tf)}</strong>`;
+  sehriEl.innerHTML = `Sehri ends <strong>${formatTime(day.prayers.SehriEnds, tf)}</strong>`;
   times.appendChild(iftarEl);
   times.appendChild(sehriEl);
   row.appendChild(times);
+
+  // Ramadan day number
+  if (day.isRamadan && day.ramadanDay) {
+    row.appendChild(h('span', { className: 'day-row-ramadan-day' }, `Day ${day.ramadanDay} of Ramaḍān`));
+  }
 
   // Badges
   if (isToday) {

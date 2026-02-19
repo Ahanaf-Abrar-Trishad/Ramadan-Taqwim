@@ -31,8 +31,7 @@ export function createCountdownHero(
     section.appendChild(label);
 
     section.appendChild(h('div', { className: 'hero-cd-time' }, siCountdown.remainingDisplay));
-
-    // Progress bar with labels
+    section.appendChild(h('div', { className: 'hero-cd-starts-at' }, `Ends at ${formatTime(siCountdown.targetTime, tf)}`));
     const barWrap = h('div', { className: 'hero-cd-bar-wrap' });
     const bar = h('div', { className: 'hero-cd-bar' });
     const fill = h('div', { className: `hero-cd-bar-fill ${siCountdown.type}` });
@@ -52,6 +51,7 @@ export function createCountdownHero(
     section.appendChild(label);
 
     section.appendChild(h('div', { className: 'hero-cd-time' }, nextPrayer.remainingDisplay));
+    section.appendChild(h('div', { className: 'hero-cd-starts-at' }, `Starts at ${formatTime(nextPrayer.time, tf)}`));
 
     const barWrap = h('div', { className: 'hero-cd-bar-wrap' });
     const bar = h('div', { className: 'hero-cd-bar' });
@@ -116,6 +116,9 @@ export function updateCountdownHero(
     const timeEl = section.querySelector('.hero-cd-time');
     if (timeEl) timeEl.textContent = siCountdown.remainingDisplay;
 
+    const startsAt = section.querySelector('.hero-cd-starts-at');
+    if (startsAt) startsAt.textContent = `Ends at ${formatTime(siCountdown.targetTime, tf)}`;
+
     const fill = section.querySelector('.hero-cd-bar-fill') as HTMLElement;
     if (fill) {
       fill.style.width = `${Math.round(siCountdown.progress * 100)}%`;
@@ -135,6 +138,9 @@ export function updateCountdownHero(
 
     const timeEl = section.querySelector('.hero-cd-time');
     if (timeEl) timeEl.textContent = nextPrayer.remainingDisplay;
+
+    const startsAt = section.querySelector('.hero-cd-starts-at');
+    if (startsAt) startsAt.textContent = `Starts at ${formatTime(nextPrayer.time, tf)}`;
 
     const fill = section.querySelector('.hero-cd-bar-fill') as HTMLElement;
     if (fill) {

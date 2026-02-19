@@ -14,10 +14,19 @@ export interface CacheResult {
   error?: string;
 }
 
-function withRamadanOverrides(data: MonthTimings): MonthTimings {
+function withDataCorrections(data: MonthTimings): MonthTimings {
+  const ramadanCorrected = applyRamadanOverrides(data.days);
+  const timingsCorrected = ramadanCorrected.map((day) => ({
+    ...day,
+    prayers: {
+      ...day.prayers,
+      SehriEnds: day.prayers.Fajr,
+    },
+  }));
+
   return {
     ...data,
-    days: applyRamadanOverrides(data.days),
+    days: timingsCorrected,
   };
 }
 
@@ -36,7 +45,7 @@ export async function loadMonthData(
   // Check cache
   const cached = await getCachedMonth(key);
   if (cached) {
-    const corrected = withRamadanOverrides(cached);
+    const corrected = withDataCorrections(cached);
     if (isCacheFresh(cached)) {
       return { data: corrected, source: 'fresh-cache' };
     }
@@ -65,7 +74,7 @@ export async function fetchAndStore(
       methodId: settings.methodId,
       school: settings.school,
     });
-    const corrected = withRamadanOverrides(data);
+    const corrected = withDataCorrections(data);
     await setCachedMonth(corrected);
     return { data: corrected, source: 'network' };
   } catch (err: any) {

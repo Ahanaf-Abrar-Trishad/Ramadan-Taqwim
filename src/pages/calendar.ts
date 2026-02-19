@@ -12,7 +12,29 @@ import { currentYear, currentMonth, monthName } from '../utils/date';
 let displayYear = currentYear();
 let displayMonth = currentMonth();
 type CalendarView = 'list' | 'grid';
-let calendarView: CalendarView = 'list';
+const CALENDAR_VIEW_KEY = 'ramadan-bd-calendar-view';
+
+function parseCalendarView(value: string | null): CalendarView {
+  return value === 'list' || value === 'grid' ? value : 'grid';
+}
+
+function loadCalendarView(): CalendarView {
+  try {
+    return parseCalendarView(localStorage.getItem(CALENDAR_VIEW_KEY));
+  } catch {
+    return 'grid';
+  }
+}
+
+function saveCalendarView(view: CalendarView): void {
+  try {
+    localStorage.setItem(CALENDAR_VIEW_KEY, view);
+  } catch {
+    // Ignore persistence failures (private mode, quota, etc.)
+  }
+}
+
+let calendarView: CalendarView = loadCalendarView();
 
 export function renderCalendarPage(container: HTMLElement): void {
   const state = appStore.getState();
@@ -34,10 +56,12 @@ export function renderCalendarPage(container: HTMLElement): void {
 
   listBtn.addEventListener('click', () => {
     calendarView = 'list';
+    saveCalendarView(calendarView);
     renderCalendarPage(container);
   });
   gridBtn.addEventListener('click', () => {
     calendarView = 'grid';
+    saveCalendarView(calendarView);
     renderCalendarPage(container);
   });
 

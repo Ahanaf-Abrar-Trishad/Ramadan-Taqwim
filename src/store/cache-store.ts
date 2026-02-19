@@ -11,10 +11,14 @@ function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    request.onupgradeneeded = () => {
+    request.onupgradeneeded = (event) => {
       const database = request.result;
+      const oldVersion = event.oldVersion;
+
       if (!database.objectStoreNames.contains('monthTimings')) {
         database.createObjectStore('monthTimings', { keyPath: 'cacheKey' });
+      } else if (oldVersion > 0) {
+        request.transaction?.objectStore('monthTimings').clear();
       }
       if (!database.objectStoreNames.contains('duaFavorites')) {
         database.createObjectStore('duaFavorites', { keyPath: 'duaId' });

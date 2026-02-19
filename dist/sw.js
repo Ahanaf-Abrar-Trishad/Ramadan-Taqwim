@@ -1,5 +1,5 @@
 // Service Worker — Cache-first for app shell, network-first for API
-const CACHE_NAME = 'ramadan-bd-v1';
+const CACHE_NAME = 'ramadan-bd-v2';
 const SHELL_ASSETS = [
   '/',
   '/index.html',

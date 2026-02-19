@@ -46,6 +46,7 @@ function applySingleDayOverride(day: DayTiming): DayTiming {
       hijriYear: override.hijriYear,
       hijriDisplay: `${ramadanDay} Ramaḍān ${override.hijriYear}`,
       isRamadan: true,
+      ramadanDay,
     };
   }
 
@@ -58,6 +59,7 @@ function applySingleDayOverride(day: DayTiming): DayTiming {
       hijriYear: override.hijriYear,
       hijriDisplay: `${shawwalDay} Shawwāl ${override.hijriYear}`,
       isRamadan: false,
+      ramadanDay: null,
     };
   }
 
@@ -71,6 +73,7 @@ function applySingleDayOverride(day: DayTiming): DayTiming {
       hijriYear: override.hijriYear,
       hijriDisplay: `30 Shaʿbān ${override.hijriYear}`,
       isRamadan: false,
+      ramadanDay: null,
     };
   }
 

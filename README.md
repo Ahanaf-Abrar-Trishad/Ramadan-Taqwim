@@ -24,10 +24,10 @@ A mobile-first Progressive Web App built with vanilla TypeScript and Bun — no 
 - **Iftar as primary** (bold, gold), Sehri as secondary
 - Today row auto-highlighted with gold border and "TODAY" badge
 - "Jump to today" and "This month" action buttons
-- Special badges for Lailat-ul-Qadr and Eid
+- Special badges for Laylat al-Qadr and Eid
 
 ### 🤲 Duas
-- 10 curated duas across Sehri, Iftar, General, and Laylatul Qadr categories
+- 10 curated duas across Sehri, Iftar, General, and Laylat al-Qadr categories
 - **Search** by title, transliteration, or translation
 - **Copy Arabic** or **Copy Translation** to clipboard with confirmation toast
 - Favorite toggle (persisted in IndexedDB)

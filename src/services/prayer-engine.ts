@@ -8,11 +8,12 @@ import { parseTimeToMinutes, formatRemaining } from '../utils/time';
  * Determine the next prayer based on current time.
  * @param prevDayIsha - Previous day's Isha time, used as the start of the Fajr progress window.
  *                      Falls back to a sensible default if not provided.
+ * @param now - Optional current time override for deterministic testing.
  */
-export function getNextPrayer(day: DayTiming, prevDayIsha?: string): NextPrayer | null {
-  const now = new Date();
-  const nowMinutes = now.getHours() * 60 + now.getMinutes();
-  const nowMs = now.getHours() * 3600000 + now.getMinutes() * 60000 + now.getSeconds() * 1000;
+export function getNextPrayer(day: DayTiming, prevDayIsha?: string, now?: Date): NextPrayer | null {
+  const currentNow = now ?? new Date();
+  const nowMinutes = currentNow.getHours() * 60 + currentNow.getMinutes();
+  const nowMs = currentNow.getHours() * 3600000 + currentNow.getMinutes() * 60000 + currentNow.getSeconds() * 1000;
 
   for (const name of PRAYER_NAMES) {
     const time = day.prayers[name];
@@ -99,11 +100,11 @@ export interface SehriIftarCountdown {
   type: 'sehri' | 'iftar';
 }
 
-export function getSehriIftarCountdown(day: DayTiming, prevDayIsha?: string): SehriIftarCountdown | null {
+export function getSehriIftarCountdown(day: DayTiming, prevDayIsha?: string, now?: Date): SehriIftarCountdown | null {
   if (!day.isRamadan) return null;
 
-  const now = new Date();
-  const nowMs = now.getHours() * 3600000 + now.getMinutes() * 60000 + now.getSeconds() * 1000;
+  const currentNow = now ?? new Date();
+  const nowMs = currentNow.getHours() * 3600000 + currentNow.getMinutes() * 60000 + currentNow.getSeconds() * 1000;
 
   const sehriTime = day.prayers.SehriEnds;
   const iftarTime = day.prayers.Iftar;

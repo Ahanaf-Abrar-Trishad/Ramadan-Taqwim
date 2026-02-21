@@ -32,7 +32,7 @@ Ramadan Taqwim: a mobile-first PWA for Bangladeshi Muslims showing Ramadan praye
 | C5 | Month nav buttons have ≥ 44px hit areas | ☐ |
 | C6 | "This month" action resets to current month | ☐ |
 | C7 | Non-Ramadan days shown at 60% opacity | ☐ |
-| C8 | Special day badges: Lailat-ul-Qadr, Eid | ☐ |
+| C8 | Special day badges: Laylat al-Qadr, Eid | ☐ |
 
 ### 3. Duas (#/duas)
 | # | Criterion | Done |

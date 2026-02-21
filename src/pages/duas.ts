@@ -12,7 +12,7 @@ const TABS: { id: TabFilter; label: string }[] = [
   { id: 'sehri', label: 'Sehri' },
   { id: 'iftar', label: 'Iftar' },
   { id: 'general', label: 'General' },
-  { id: 'laylatul-qadr', label: 'Laylatul Qadr' },
+  { id: 'laylatul-qadr', label: 'Laylat al-Qadr' },
   { id: 'favorites', label: '♥ Favorites' },
 ];
 

@@ -66,7 +66,7 @@ Single card. Shows primary event countdown (Sehri Ends / Iftar during Ramadan, o
 - Upcoming: normal
 
 ### 5. `<DayRow>` — day-row.ts
-Calendar row. Header: Date · Weekday | Hijri. Times: Iftar (primary, bold gold) | Sehri Ends (secondary). Badges: TODAY, Lailat-ul-Qadr, Eid.
+Calendar row. Header: Date · Weekday | Hijri. Times: Iftar (primary, bold gold) | Sehri Ends (secondary). Badges: TODAY, Laylat al-Qadr, Eid.
 
 ### 6. `<DuaCard>` — dua-card.ts (enhanced)
 Arabic block (Amiri, ≥1.5rem, RTL, padded bg). Transliteration (normal weight, muted color — NOT gold italic). Translation. Source. Actions row: Copy Arabic, Copy Translation, Favorite heart.

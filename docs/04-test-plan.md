@@ -48,6 +48,6 @@
 | P2-3 | Transparency footer complete | Today | Shows "City · Method · School" below prayer list |
 | P2-4 | Nav tab icons render | All | Each nav tab shows emoji icon + text label |
 | P2-5 | PWA installable | All | Lighthouse audit → PWA criteria met |
-| P2-6 | Build size ≤ 50 KB | Build | Run `bun run build` → check dist/app.js size |
+| P2-6 | Build size ≤ 50 KB | Build | Run `bun run build` → check dist/main.js size |
 | P2-7 | Reduced motion respected | All | Set prefers-reduced-motion → no animations |
 | P2-8 | Focus visible ring | All | Tab through UI → gold focus ring on interactive elements |
